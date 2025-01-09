@@ -39,7 +39,7 @@ public class AuthController {
 	  public ResponseEntity<?> post(@RequestBody AuthRequest request) throws Exception {
 
 	    logger.info("Post: UserName {} - Password {}", request.getUserName(), request.getPassword());
-
+	    logger.info("Starting Testing CodePipeline");
 	    if (!authService.validatedCredentials(request.getUserName(), request.getPassword())) {
 	      return new ResponseEntity<String>("INVALID_CREDENTIALS", HttpStatus.UNAUTHORIZED);
 	    }
