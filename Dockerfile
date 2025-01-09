@@ -5,7 +5,8 @@ COPY . /home/app
 RUN mvn -f /home/app/pom.xml clean package -DskipTests  
 
 #java --version
-FROM  openjdk:19
+#FROM  openjdk:19
+FROM public.ecr.aws/docker/library/openjdk:19
 VOLUME /tmp
 EXPOSE 80
 COPY --from=build /home/app/target/*.jar app.jar
