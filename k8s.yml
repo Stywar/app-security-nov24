@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment-security
+  labels:
+    app: security-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: security-service
+  template:
+    metadata:
+      labels:
+        app: security-service
+    spec:
+      containers:
+      - name: app-security
+        image: 532336934360.dkr.ecr.us-east-1.amazonaws.com/appsecurity
+        ports:
+        - containerPort: 80
+        env:
+        - name: SPRING_CLOUD_CONFIG_LABEL
+          value: prod
+        - name: SPRING_CLOUD_CONFIG_URI
+          value: http://44.202.101.171:8888       
+        - name: AWS_ACCESS_KEY_ID
+          value: AKIAXX4OA7XMLUNMWHD3
+        - name: AWS_SECRET_ACCESS_KEY
+          value: 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
+        - name: AWS_DEFAULT_REGION
+          value: us-east-1                
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-service-security
+spec:
+  type: LoadBalancer
+  selector:
+    app: security-service
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
